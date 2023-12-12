@@ -94,4 +94,14 @@ a {
   padding: 10px 0;
   font-size: 20px;
   margin: 15px 15px 0 0;
+}
+
+.footer {
+  background-color: rgb(14, 13, 39);
+  padding-top: 40px;
+  margin-top: 50px;
+}
+.footer__text {
+  text-align: center;
+  color: white;
 }/*# sourceMappingURL=style.css.map */
