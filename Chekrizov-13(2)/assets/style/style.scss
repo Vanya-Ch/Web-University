@@ -9,10 +9,7 @@
 ul,ol{
     list-style: none;
 }
-a{
-    text-decoration: none;
-    color: black;
-}
+
 .container{
     max-width: calc(1170px/1440px*100%);
     margin: 0 auto;
@@ -56,6 +53,7 @@ a{
         display: flex;
         flex-direction: column;
         gap: 5px;
+        width: 23%;
     }
 }
 .lightblue{
@@ -70,11 +68,18 @@ a{
 .green{
     color: green;
 }
+.orange{
+    color: orange;
+}
+.brown{
+    color: brown;
+}
 .block{
     font-size: 12px;
     display: flex;
     flex-direction: column;
     gap: 5px;
+    width: 100%;
     &__heading{
         font-size: 20px;
         font-weight: 700;
