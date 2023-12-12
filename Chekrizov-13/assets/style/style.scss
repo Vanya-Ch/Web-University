@@ -58,6 +58,7 @@ a{
         color: white;
         padding: 15px 0px;
         background-color: lightblue;
+        border: 1px solid gray;
     }
     &__form{
         padding: 15px 0px;
@@ -77,5 +78,15 @@ a{
         -ms-border-radius: 5px;
         -o-border-radius: 5px;
         border: 1px solid gray;
-}
+    }
+    &__button{
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+    &__submit{
+        padding: 10px 0;
+        font-size: 20px;
+        margin: 15px 15px 0 0;
+    }
 }
