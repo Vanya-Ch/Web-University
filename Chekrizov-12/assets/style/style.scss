@@ -60,6 +60,7 @@ header{
 .cartoons{
     padding: 10px;
     background-color: rgb(34, 34, 34);
+    box-shadow: 0px 10px 20px gray inset;
     &__row{
         display: flex;
         flex-direction: row;
