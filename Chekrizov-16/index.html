@@ -1,51 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
-<body>
-    <script>
-        let date = new Date();
-        const options = {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-        };
-        let time = date.toLocaleTimeString()
-        console.log(`${time}, ${date.toLocaleString("uk-UA", options)}`)
-    </script>
-    <script>
-        let rand = Math.round(Math.random() * (1+99))
-        let isTrue = true;
-        let counter = 0;
-        while(isTrue == true){
-            let number = +prompt('enter your number')
-            counter++;
-            if(number === rand){
-                isTrue = false;
-                console.log(`Ви витратили ${counter} спроб і ваше число: ${number}`)
-            }else if(Math.abs(rand - number) <= 3){
-                alert('Гаряче')
-                console.log(`${time} Спроба ${counter}: число ${number} - не вірно`)
-            }else if(Math.abs(rand - number) > 3 && Math.abs(rand - number) <= 5){
-                alert('Тепло')
-                console.log(`${time} Спроба ${counter}: число ${number} - не вірно`)
-            }else if(Math.abs(rand - number) > 5 && Math.abs(rand - number) <= 10){
-                alert('Холодно')
-                console.log(`${time} Спроба ${counter}: число ${number} - не вірно`)
-            }else if(Math.abs(rand - number) > 10){
-                alert('Дуже холодно')
-                console.log(`${time} Спроба ${counter}: число ${number} - не вірно`)
-            }
+    <title>Lab-16</title>
+    <style>
+        .img__wrapper{
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
         }
+        .hyperlink__wrapper{
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="img__wrapper">
+        <img class="img__click" src="src=1" alt="" width="200" height="300" onclick=Alert(this)>
+        <img class="img__click" src="src=2" alt="" width="200" height="300" onclick=Alert(this)>
+        <img class="img__click" src="src=3" alt="" width="200" height="300" onclick=Alert(this)>
+    </div>
+    <div class="hyperlink__wrapper">
+        <a class="hyperlink" href="#">Посилання 1</a>
+        <a class="hyperlink" href="#">Посилання 2</a>
+        <a class="hyperlink" href="#">Посилання 3</a>
+    </div>
+    
+    <a href="index2.html">3-4 завдання</a>
+    <script>
+        function Alert(img){
+            alert(img.src)
+        }
+        let link = document.getElementsByClassName('hyperlink')
+        for(let i = 0; i<=link.length; i++){
+            link[i].addEventListener("mouseover", ()=>{
+                link[i].setAttribute("title", link[i].innerText)
+            })
+            link[i].addEventListener("mouseout", ()=>{
+                link[i].removeAttribute("title")
+            })
+        }
+        
         
     </script>
 </body>
-
 </html>

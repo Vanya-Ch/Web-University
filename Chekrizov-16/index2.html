@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="hyperlinkText__wrapper">
+        <a class="hyperlinkText" href="#">Посилання 1</a>
+        <a class="hyperlinkText" href="#">Посилання 2</a>
+        <a class="hyperlinkText" href="#">Посилання 3</a>
+    </div>
+    <a href="index3.html">5 task</a>
+    
+    <script>
+        let link = document.getElementsByClassName('hyperlinkText');
+        for(let i = 0; i<=link.length; i++){
+            let text = link[i].innerText;
+            link[i].addEventListener("mouseover", ()=>{
+                link[i].innerText = link[i].innerText + link[i].getAttribute('href')
+            }, {once:true})
+            link[i].addEventListener("mouseout", ()=>{
+                link[i].innerText = text;
+            })
+        }
+        
+    </script>
+</body>
+</html>

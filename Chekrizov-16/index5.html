@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="input__wrapper">
+        <input type="text" data-length="8">
+        <input type="text" data-length="2">
+        <input type="text" data-length="6">
+    </div>
+    <a href="index6.html">task 2.1</a>
+    <script>
+        let input = document.querySelectorAll('input');
+        for(let i = 0; i <= input.length; i++){
+            let length = input[i].attributes[1].value;
+            input[i].addEventListener('blur', ()=>{
+                if(input[i].value.length > length){
+                    input[i].style.borderColor = 'red'
+                }else{
+                    input[i].style.borderColor = 'green'
+                }
+            })
+        }
+        
+    </script>
+</body>
+</html>

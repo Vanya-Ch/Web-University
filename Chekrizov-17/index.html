@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let date = new Date();
+        const options = {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+        };
+        let time = date.toLocaleTimeString()
+        console.log(`${time}, ${date.toLocaleString("uk-UA", options)}`)
+    </script>
+    <script>
+        let rand = Math.round(Math.random() * (1+99))
+        let isTrue = true;
+        let counter = 0;
+        while(isTrue == true){
+            let number = +prompt('enter your number')
+            counter++;
+            if(number === rand){
+                isTrue = false;
+                console.log(`Ви витратили ${counter} спроб і ваше число: ${number}`)
+            }else if(Math.abs(rand - number) <= 3){
+                alert('Гаряче')
+                console.log(`${time} Спроба ${counter}: число ${number} - не вірно`)
+            }else if(Math.abs(rand - number) > 3 && Math.abs(rand - number) <= 5){
+                alert('Тепло')
+                console.log(`${time} Спроба ${counter}: число ${number} - не вірно`)
+            }else if(Math.abs(rand - number) > 5 && Math.abs(rand - number) <= 10){
+                alert('Холодно')
+                console.log(`${time} Спроба ${counter}: число ${number} - не вірно`)
+            }else if(Math.abs(rand - number) > 10){
+                alert('Дуже холодно')
+                console.log(`${time} Спроба ${counter}: число ${number} - не вірно`)
+            }
+        }
+        
+    </script>
+</body>
+
+</html>
