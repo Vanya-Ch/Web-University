@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculator</title>
+</head>
+<body>
+<script>
+    const calculatorContainer = document.createElement('div');
+    calculatorContainer.classList.add('calculator');
+
+    const outputDisplay = document.createElement('div');
+    outputDisplay.classList.add('output');
+    outputDisplay.textContent = '0';
+
+    const buttonsContainer = document.createElement('div');
+    buttonsContainer.classList.add('buttons');
+
+    const buttonData = [
+        '7', '8', '9', '+',
+        '4', '5', '6', '-',
+        '1', '2', '3', '*',
+        'C', '0', '=', '/'
+    ];
+
+    buttonData.forEach(value => {
+        const button = document.createElement('button');
+        button.classList.add('button');
+        button.textContent = value;
+        button.addEventListener('click', () => buttonClick(value));
+        buttonsContainer.appendChild(button);
+    });
+
+    calculatorContainer.appendChild(outputDisplay);
+    calculatorContainer.appendChild(buttonsContainer);
+    document.body.appendChild(calculatorContainer);
+
+    const style = document.createElement('style');
+    style.textContent = `
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        
+        .calculator {
+            background-color: #f7f7f7;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+        }
+        
+        .output {
+            font-size: 24px;
+            text-align: right;
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 10px;
+        }
+        
+        .button {
+            padding: 15px;
+            font-size: 18px;
+            text-align: center;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .button:hover {
+            background-color: #e0e0e0;
+        }
+        
+        .button.operator {
+            background-color: #f0f0f0;
+        }
+        
+        .button.operator:hover {
+            background-color: #dcdcdc;
+        }
+    `;
+    document.head.appendChild(style);
+
+    let currentNumber = '0';
+    let operator = null;
+    let previousNumber = null;
+
+    function buttonClick(value) {
+        if (!isNaN(parseInt(value))) {
+            appendNumber(value);
+        } else if (value === '.') {
+            appendDecimal();
+        } else if (value === 'C') {
+            clearOutput();
+        } else if (value === '=') {
+            calculateResult();
+        } else {
+            setOperator(value);
+        }
+    }
+
+    function appendNumber(number) {
+        if (currentNumber === '0' && number !== '.') {
+            currentNumber = number;
+        } else {
+            currentNumber += number;
+        }
+        updateOutput();
+    }
+
+    function appendDecimal() {
+        if (!currentNumber.includes('.')) {
+            currentNumber += '.';
+            updateOutput();
+        }
+    }
+
+    function updateOutput() {
+        outputDisplay.textContent = currentNumber;
+    }
+
+    function setOperator(op) {
+        if (operator !== null) {
+            calculateResult();
+        }
+        operator = op;
+        previousNumber = currentNumber;
+        currentNumber = '0';
+        updateOutput();
+    }
+
+    function calculateResult() {
+        let result;
+        const prev = parseFloat(previousNumber);
+        const current = parseFloat(currentNumber);
+        if (operator === '+') {
+            result = prev + current;
+        } else if (operator === '-') {
+            result = prev - current;
+        } else if (operator === '*') {
+            result = prev * current;
+        } else if (operator === '/') {
+            result = prev / current;
+        }
+        currentNumber = result.toString();
+        operator = null;
+        previousNumber = null;
+        updateOutput();
+    }
+
+    function clearOutput() {
+        currentNumber = '0';
+        operator = null;
+        previousNumber = null;
+        updateOutput();
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Гра</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style>
+    .correct {
+        background-color: lightgreen;
+    }
+
+    .best-attempt {
+        color: blue;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    td {
+        border: 1px solid black;
+        padding: 10px;
+    }
+</style>
+</head>
+<body>
+
+<div id="main-content">
+    <h1>Назва гри</h1>
+    <button id="start-game-btn">Почати гру</button>
+</div>
+
+<div id="game-content" style="display: none;">
+    <div id="timer">60</div>
+    <table id="game-table"></table>
+    <button id="restart-btn">Почати з початку</button>
+</div>
+
+<div id="congratulations" style="display: none;">
+    <h2>Вітаємо! Гра завершена!</h2>
+    <p>Ви витратили <span id="elapsed-time"></span> секунд на гру.</p>
+</div>
+
+<script>
+    $(document).ready(function() {
+        var timerInterval;
+        var attempts = 0;
+        var bestAttempt = Infinity;
+        var startTime;
+        var currentPlayerNumber = 1; 
+
+        function getRandomColor() {
+            var letters = '0123456789ABCDEF';
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        function shuffleArray(array) {
+            for (var i = array.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                var temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+            }
+            return array;
+        }
+
+        function createGameTable() {
+            var gameTable = $('#game-table');
+            gameTable.empty();
+            var numbers = [];
+            for (var i = 1; i <= 25; i++) {
+                numbers.push(i);
+            }
+            numbers = shuffleArray(numbers);
+            var count = 0;
+            for (var i = 0; i < 5; i++) {
+                var row = $('<tr>');
+                for (var j = 0; j < 5; j++) {
+                    var cell = $('<td>').text(numbers[count++]);
+                    cell.css({
+                        'font-size': Math.floor(Math.random() * 20 + 16) + 'px',
+                        'color': getRandomColor()
+                    });
+                    row.append(cell);
+                }
+                gameTable.append(row);
+            }
+        }
+
+        function checkSelection(selectedNumber) {
+            if (selectedNumber != currentPlayerNumber) {
+                alert('Не вірна цифра!');
+            } else {
+                $('#game-table td.selected').addClass('correct');
+                currentPlayerNumber++;
+                if (currentPlayerNumber == 26) {
+                    clearInterval(timerInterval);
+                    var elapsedTime = Math.floor((Date.now() - startTime) / 1000);
+                    $('#elapsed-time').text(elapsedTime);
+                    $('#game-content').hide();
+                    $('#congratulations').show();
+                    attempts++;
+                    $('#attempts').text(attempts);
+                    if (attempts == 1 || attempts < bestAttempt) {
+                        bestAttempt = attempts;
+                        $('#best-attempt').text(bestAttempt).addClass('best-attempt');
+                    }
+                }
+            }
+        }
+
+        $('#start-game-btn').click(function() {
+            $('#main-content').hide();
+            $('#game-content').show();
+            createGameTable();
+            var secondsLeft = 60;
+            $('#timer').text(secondsLeft);
+            timerInterval = setInterval(function() {
+                secondsLeft--;
+                $('#timer').text(secondsLeft);
+                if (secondsLeft == 0) {
+                    clearInterval(timerInterval);
+                    alert('Час вийшов!');
+                }
+            }, 1000);
+            startTime = Date.now();
+        });
+
+        $('#restart-btn').click(function() {
+            $('#game-content').show();
+            $('#congratulations').hide();
+            createGameTable();
+            var secondsLeft = 60;
+            $('#timer').text(secondsLeft);
+            clearInterval(timerInterval);
+            timerInterval = setInterval(function() {
+                secondsLeft--;
+                $('#timer').text(secondsLeft);
+                if (secondsLeft == 0) {
+                    clearInterval(timerInterval);
+                    alert('Час вийшов!');
+                }
+            }, 1000);
+            startTime = Date.now();
+            attempts = 0;
+            $('#attempts').text(attempts);
+            currentPlayerNumber = 1; 
+        });
+
+        $('#game-table').on('click', 'td', function() {
+            var selectedNumber = parseInt($(this).text());
+            checkSelection(selectedNumber);
+        });
+    });
+</script>
+
+</body>
+</html>
